@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class ProyectoAdministracionAngular5Page {
+export class ProyectoAcreditacionAngular5Page {
   navigateTo() {
     return browser.get('/');
   }

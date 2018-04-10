@@ -37,7 +37,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule,
+  MatStepperModule
 } from '@angular/material';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';

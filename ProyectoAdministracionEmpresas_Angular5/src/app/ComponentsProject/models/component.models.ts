@@ -5,7 +5,6 @@
 */
 
 export class ComponentModel  {
-	
 	constructor(
 		public ID_Component : Number,
 		public Component : String,

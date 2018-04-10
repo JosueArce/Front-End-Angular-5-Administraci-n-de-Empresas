@@ -9,12 +9,20 @@ import { CdkTableModule } from '@angular/cdk/table';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { ComponentsRoutes } from './ComponentsProject.routing';
 
-//components are imported here
-import { ComponentsComponent } from './components/components.component';
+//Components
+import { Index_Component } from './components/index.component';
+import { ViewComponent } from './components/view/view.component';
+import { AddComponent } from './components/add/add.component';
+import { DeleteComponent } from './components/delete/delete.component';
+import { EditComponent } from './components/edit/edit.component';
+
+//Dimensions
 import { DimensionsComponent } from './dimensions/dimensions.component';
+
 
 @NgModule({
 	imports : [
@@ -30,8 +38,13 @@ import { DimensionsComponent } from './dimensions/dimensions.component';
 	providers :[],
 	entryComponents :[],
 	declarations :[
-		ComponentsComponent,
+		Index_Component,
+		ViewComponent,
+		AddComponent,
+		DeleteComponent,
+		EditComponent,
 		DimensionsComponent
+		
 	]
 })
 

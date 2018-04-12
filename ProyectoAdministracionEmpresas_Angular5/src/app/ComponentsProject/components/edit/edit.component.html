@@ -4,24 +4,53 @@
 	 Author: Josue Arce
 	 Description : edit window view 
 -->
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--4-col">
+		<h4>Editar Componente</h4>
+	</div>
+</div>
 
-<mat-grid-list cols="4" rowHeight="400px">
+<div class="mdl-grid">
 
-<!-- 	Left Container -->
-	<mat-grid-tile [colspan]="3" [rowspan]="1">
+<!-- 	LEFT CONTAINER -->
+	<div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--8-col-phone" style="border-right: 2px solid">
+		<div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--8-col-phone">
+			<mat-form-field>
+          		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        	</mat-form-field>
+		</div>
+		
+		<div class="mdl-cell mdl--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+				aca va la tabla
+			
+		</div>
 
-		<!-- Header -->
-			<div class="w3-container"> 
-			  <h2>With a Container</h2>
-			  <p>The w3-container class is one of the most important of the w3.CSS classes. It provides correct margins, padding, alignments, and more to common HTML elements.</p>
-			</div>
-        
-    </mat-grid-tile>
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-start">
+			<mat-paginator [length]="100" [pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [ngStyle]="{backgroundColor:'transparent'}"></mat-paginator>
+		</div>
 
+	</div>
 
-<!-- 	Right container -->
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-        
-    </mat-grid-tile>
-	
-</mat-grid-list>
+<!-- 	RIGHT CONTAINER -->
+	<div class="mdlcell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" >
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+			<mat-form-field>
+			    <input matInput #input maxlength="30" placeholder="Ingrese el nombre del Componente" [(ngModel)]="component_name" >
+			    <mat-hint align="begin" *ngIf="!component_name" [ngStyle]="{'color':'red'}">*Espacío Vacío</mat-hint><mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
+			</mat-form-field>
+		</div>
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+			<mat-form-field>
+			    <mat-select placeholder="Dimensiones Disponibles" [(value)]="component_dimension">
+			      <mat-option value="option" *ngFor="let item of lista" >{{item.nombre}}</mat-option>
+			    </mat-select>
+			    <mat-hint align="begin" *ngIf="!component_dimension" [ngStyle]="{'color':'red'}">*Sin Seleccionar</mat-hint>
+			</mat-form-field>	
+		</div>
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="width: 100%">
+			    Editar
+			</button>
+		</div>
+	</div>
+</div>

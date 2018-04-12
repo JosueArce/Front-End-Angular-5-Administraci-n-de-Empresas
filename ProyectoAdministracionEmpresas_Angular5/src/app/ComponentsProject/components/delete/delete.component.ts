@@ -1,7 +1,15 @@
+/*
+  Creation date: 09/04/2018
+  Author: Josue Arce
+  Description: Back part of the process of deleting a component
+*/
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ComponentModel } from '../../models/component.models';
+
+
 
 @Component({
   selector: 'delete-component',
@@ -10,47 +18,104 @@ import { ComponentModel } from '../../models/component.models';
 })
 export class DeleteComponent  {
 
-  displayedColumns = ['select','Componente','Dimensiones Asocidadas'];
-  dataSource = new MatTableDataSource<ComponentModel>(ELEMENT_DATA);
-  selection = new SelectionModel<ComponentModel>(true, []);
+/*START----------------DECORATORS-----------------------------*/
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  /** Whether the number of selected elements matches the total number of rows. */
+
+/*END------------------DECORATORS-----------------------------*/
+
+/*START----------------DEFINITIOS OF VARS--------------------------------------------*/
+  //allows to display the table headers 
+  displayedColumns = ['select','Componente','Dimensiones Asociadadas'];
+
+  //contains the data received from the endpoint
+  data = Object.assign( ELEMENT_DATA);
+
+  //contains the records, a copy of data
+  dataSource = new MatTableDataSource(this.data)
+
+  //allows to check which rows are selected with the checkbox
+  selection = new SelectionModel(true, []);
+
+  
+
+/*END----------------DEFINITIONS OF VARS----------------------------------------------*/
+
+
+/*START-----------------------CHECKBOX IN TABLE------------------------------------------*/
+  // Whether the number of selected elements matches the total number of rows.
   isAllSelected() {
-  	console.log(this.selection.selected);
+    console.log(this.selection.selected);
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // Selects all rows if they are not all selected; otherwise clear selection.
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.dataSource.data.forEach(row => {this.selection.select(row)});
   }
 
+/*END-------------------------CHECKBOX IN TABLE------------------------------------------*/  
+
+/*START-----------------------ONCLICK METHODS---------------------------------------------*/
+
+//calls the method to delete 1 or more rows
+delete_data(){
+  this.selection.selected.forEach(item => {
+      let index: number = this.data.findIndex(pos => pos === item);
+      this.data.splice(index,1)
+      this.dataSource = new MatTableDataSource<ComponentModel>(this.data);
+    });
+    this.selection = new SelectionModel<ComponentModel>(true, []);
+}
+/*END-------------------------ONCLICK METHODS----------------------------------------------*/
+
+
+/*START-------------------------FILTER FOR TABLE------------------------------------------*/
    applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  /**
-   * Set the paginator after the view init since this component will
-   * be able to query its view for the initialized paginator.
-   */
+ /*END-------------------------FILTER FOR TABLE-------------------------------------------*/ 
+   
+/*START------------------------PAGINATION--------------------------------------------------*/
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+/*END--------------------------PAGINATION---------------------------------------------------*/
+
 
 }
-
-const ELEMENT_DATA: ComponentModel[{}] = [
-  { ID_Component: 1, Component: 'Daniel', ID_Dimension: 1, Dimension: 'H' },
-  { ID_Component: 1, Component: 'se', ID_Dimension: 1, Dimension: 'H' },
-  { ID_Component: 1, Component: 'la', ID_Dimension: 1, Dimension: 'H' },
-  { ID_Component: 1, Component: 'come', ID_Dimension: 1, Dimension: 'H' },
-  { ID_Component: 1, Component: 'asdadadad', ID_Dimension: 1, Dimension: 'H' }
-  
+export interface Element {
+  Dimensiones_Asocidadas: string;
+  Componente: number;
+  weight: number;
+  symbol: string;
+}
+let ELEMENT_DATA: Element[] = [
+  { Componente: 1, Dimensiones_Asocidadas: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { Componente: 2, Dimensiones_Asocidadas: 'Helium', weight: 4.0026, symbol: 'He' },
+  { Componente: 3, Dimensiones_Asocidadas: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { Componente: 4, Dimensiones_Asocidadas: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { Componente: 5, Dimensiones_Asocidadas: 'Boron', weight: 10.811, symbol: 'B' },
+  { Componente: 6, Dimensiones_Asocidadas: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { Componente: 7, Dimensiones_Asocidadas: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { Componente: 8, Dimensiones_Asocidadas: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { Componente: 9, Dimensiones_Asocidadas: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { Componente: 10, Dimensiones_Asocidadas: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  { Componente: 11, Dimensiones_Asocidadas: 'Sodium', weight: 22.9897, symbol: 'Na' },
+  { Componente: 12, Dimensiones_Asocidadas: 'Magnesium', weight: 24.305, symbol: 'Mg' },
+  { Componente: 13, Dimensiones_Asocidadas: 'Aluminum', weight: 26.9815, symbol: 'Al' },
+  { Componente: 14, Dimensiones_Asocidadas: 'Silicon', weight: 28.0855, symbol: 'Si' },
+  { Componente: 15, Dimensiones_Asocidadas: 'Phosphorus', weight: 30.9738, symbol: 'P' },
+  { Componente: 16, Dimensiones_Asocidadas: 'Sulfur', weight: 32.065, symbol: 'S' },
+  { Componente: 17, Dimensiones_Asocidadas: 'Chlorine', weight: 35.453, symbol: 'Cl' },
+  { Componente: 18, Dimensiones_Asocidadas: 'Argon', weight: 39.948, symbol: 'Ar' },
+  { Componente: 19, Dimensiones_Asocidadas: 'Potassium', weight: 39.0983, symbol: 'K' },
+  { Componente: 20, Dimensiones_Asocidadas: 'Calcium', weight: 40.078, symbol: 'Ca' },
 ];

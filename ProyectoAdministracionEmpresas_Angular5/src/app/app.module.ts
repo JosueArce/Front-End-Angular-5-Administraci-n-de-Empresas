@@ -24,7 +24,7 @@ import { SpinnerComponent } from './shared/spinner.component';
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent 
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,

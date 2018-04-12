@@ -9,7 +9,7 @@ export class ComponentModel  {
 		public ID_Component : Number,
 		public Component : String,
 		public ID_Dimension : Number,
-		private Dimension : String
+		public Dimension : String
 	) {
 	}
 }

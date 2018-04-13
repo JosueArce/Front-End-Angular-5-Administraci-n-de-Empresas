@@ -3,5 +3,47 @@
 	Description: Component List View - shows all records registered in the DB
  -->
 
-<p>RECORDS WILL BE HERE</p>
 
+<div class="mdl-cell">
+	<div class="mdl-cell mdl-cell--4-col">
+		<h4>Resumen</h4>
+	</div>
+</div>
+
+<div class="mdl-grid">
+	<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" [ngStyle]="{}">
+		<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+			<mat-form-field>
+          		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        	</mat-form-field>
+		</div>
+		
+		<div class="mdl-cell mdl--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: center;width: 100%">
+				<mat-table #table [dataSource]="dataSource" [ngStyle]="{width:'100%'}">
+
+				    <!-- Name Column -->
+				    <ng-container matColumnDef="symbol">
+				      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> symbol </mat-header-cell>
+				      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+				    </ng-container>
+
+				    <!-- Weight Column -->
+				    <ng-container matColumnDef="Dimensiones Asociadadas">
+				      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Dimensiones Asocidadas </mat-header-cell>
+				      <mat-cell *matCellDef="let element"> {{element.Dimensiones_Asocidadas}} </mat-cell>
+				    </ng-container>
+
+				    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				    <mat-row *matRowDef="let row; columns: displayedColumns;" >
+				    </mat-row>
+				  </mat-table>
+
+			
+		</div>
+
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-end">
+			<mat-paginator [length]="100" [pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [ngStyle]="{backgroundColor:'transparent'}"></mat-paginator>
+		</div>
+
+	</div>
+</div>

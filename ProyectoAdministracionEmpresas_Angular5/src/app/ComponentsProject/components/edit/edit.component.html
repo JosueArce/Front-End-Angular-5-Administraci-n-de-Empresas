@@ -13,26 +13,74 @@
 <div class="mdl-grid">
 
 <!-- 	LEFT CONTAINER -->
-	<div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--8-col-phone" style="border-right: 2px solid">
-		<div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--8-col-phone">
-			<mat-form-field>
-          		<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
-        	</mat-form-field>
+	<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" >
+
+		<!-- Header - Filter and edit button -->
+		<div class="mdl-grid">
+			<div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+				<mat-form-field >
+			        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+		        </mat-form-field>	        
+			</div>
+
+			<div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-end;">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="width: 100%">Editar</button>
+			</div>
 		</div>
 		
-		<div class="mdl-cell mdl--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-				aca va la tabla
+		<!--<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+			
+		</div> -->
+		
+		<!-- Table -->
+		<div class="mdl-cell mdl--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="width: 100%">
+			<mat-table #table [dataSource]="dataSource" [ngStyle]="{width_: '100%'}">
+
+			    <!-- Checkbox Column -->
+			    <ng-container matColumnDef="select" >
+			      <mat-header-cell *matHeaderCellDef>
+			       <!--  <mat-checkbox (change)="$event ? masterToggle() : null"
+			                      [checked]="selection.hasValue() && isAllSelected()"
+			                      [indeterminate]="selection.hasValue() && !isAllSelected()" >
+			        </mat-checkbox> -->
+			      </mat-header-cell>
+			      <mat-cell *matCellDef="let row">
+			        <mat-checkbox 
+			                      (change)="$event ? selectItem(row) : null"
+			                      [checked]="selection.isSelected(row)">
+			        </mat-checkbox>
+			      </mat-cell>
+			    </ng-container>
+
+
+			    <!-- Name Column -->
+			    <ng-container matColumnDef="Componente">
+			      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Componente </mat-header-cell>
+			      <mat-cell *matCellDef="let element"> {{element.Componente}} </mat-cell>
+			    </ng-container>
+
+			    <!-- Weight Column -->
+			    <ng-container matColumnDef="Dimensiones Asociadadas">
+			      <mat-header-cell *matHeaderCellDef [ngStyle]="{'font-size':'15px'}"> Dimensiones Asocidadas </mat-header-cell>
+			      <mat-cell *matCellDef="let element"> {{element.Dimensiones_Asocidadas}} </mat-cell>
+			    </ng-container>
+
+			    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+			    <mat-row *matRowDef="let row; columns: displayedColumns;" >
+			    </mat-row>
+			</mat-table>
 			
 		</div>
 
-		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-start">
+		<!-- Pagination -->
+		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="display: flex;justify-content: flex-end">
 			<mat-paginator [length]="100" [pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [ngStyle]="{backgroundColor:'transparent'}"></mat-paginator>
 		</div>
 
 	</div>
 
 <!-- 	RIGHT CONTAINER -->
-	<div class="mdlcell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" >
+	<!-- <div class="mdlcell mdl-cell--5-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="padding-top: 12%">
 		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
 			<mat-form-field>
 			    <input matInput #input maxlength="30" placeholder="Ingrese el nombre del Componente" [(ngModel)]="component_name" >
@@ -41,8 +89,8 @@
 		</div>
 		<div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
 			<mat-form-field>
-			    <mat-select placeholder="Dimensiones Disponibles" [(value)]="component_dimension">
-			      <mat-option value="option" *ngFor="let item of lista" >{{item.nombre}}</mat-option>
+			    <mat-select placeholder="Dimensiones Disponibles" [(ngModel)]="component_dimension">
+			      <mat-option value="option" *ngFor="let item of lista" [value]="item">{{item.nombre}}</mat-option>
 			    </mat-select>
 			    <mat-hint align="begin" *ngIf="!component_dimension" [ngStyle]="{'color':'red'}">*Sin Seleccionar</mat-hint>
 			</mat-form-field>	
@@ -52,5 +100,5 @@
 			    Editar
 			</button>
 		</div>
-	</div>
+	</div> -->
 </div>
